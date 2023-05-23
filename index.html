@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" type="image/svg" href="/icon.svg" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <script defer src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+
+
+
+    <script defer src="script.js"></script>
+    <title>Duathlogger // Log your running and cycling </title>
+  </head>
+  <body>
+    <div id="loader"></div>
+    <div class="sidebar">
+      
+      <img src="logo.png" alt="Logo" class="logo" />
+   
+
+      <ul class="workouts">
+
+        <div class='loading-message hidden'>
+          <div id="loader-message"></div>
+          <h3>Getting location information now.. please wait a little longer..</h3>
+        </div>
+
+        <form class="form hidden">
+          <div class="form__row">
+            <label class="form__label">Type</label>
+            <select class="form__input form__input--type">
+              <option value="running">Running</option>
+              <option value="cycling">Cycling</option>
+            </select>
+          </div>
+          <div class="form__row">
+            <label class="form__label">Distance</label>
+            <input class="form__input form__input--distance" placeholder="km" />
+          </div>
+          <div class="form__row">
+            <label class="form__label">Duration</label>
+            <input
+              class="form__input form__input--duration"
+              placeholder="min"
+            />
+          </div>
+          <div class="form__row">
+            <label class="form__label">Cadence</label>
+            <input
+              class="form__input form__input--cadence"
+              placeholder="step/min"
+            />
+          </div>
+          <div class="form__row form__row--hidden">
+            <label class="form__label">Elev Gain</label>
+            <input
+              class="form__input form__input--elevation"
+              placeholder="meters"
+            />
+          </div>
+          <button class="form__btn">OK</button>
+     
+        </form>
+
+        
+
+        <form class="form-edit hidden">
+          <div class="form-edit__row">
+            <label class="form-edit__label">Type</label>
+            <select class="form-edit__input form-edit__input--type">
+              <option value="running">Running</option>
+              <option value="cycling">Cycling</option>
+            </select>
+          </div>
+          <div class="form-edit__row">
+            <label class="form-edit__label">Distance</label>
+            <input class="form-edit__input form-edit__input--distance" placeholder="km" />
+          </div>
+          <div class="form-edit__row">
+            <label class="form-edit__label">Duration</label>
+            <input
+              class="form-edit__input form-edit__input--duration"
+              placeholder="min"
+            />
+          </div>
+          <div class="form-edit__row">
+            <label class="form-edit__label">Cadence</label>
+            <input
+              class="form-edit__input form-edit__input--cadence"
+              placeholder="step/min"
+            />
+          </div>
+          <div class="form-edit__row form-edit__row--hidden">
+            <label class="form-edit__label">Elev Gain</label>
+            <input
+              class="form-edit__input form-edit__input--elevation"
+              placeholder="meters"
+            />
+          </div>
+         
+          <div class="form-edit__btn form-edit-save__btn">🙆‍♀️ SAVE</div>
+          <div class="form-edit__btn form-edit-cancel__btn">🙅‍♀️ CANCEL</div>
+        
+     
+        </form>
+
+        <form class="delete-confirmation-dropdown hidden">
+          <h2>Do you want to delete this your workout?<br/>Press OK if you are sure </h2>
+  
+          <li class="delete-confirmation-dropdown-ok-btn"> 🙆‍♀️ OK</li>
+          <li class="delete-confirmation-dropdown-cancel-btn">🙅‍♀️ CANCEL</li>
+        </form>
+
+        <!-- <li class="workout workout--running" data-id="1234567890">
+          <h2 class="workout__title">Running on April 14</h2>
+          <div class="workout__details">
+            <span class="workout__icon">🏃‍♂️</span>
+            <span class="workout__value">5.2</span>
+            <span class="workout__unit">km</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⏱</span>
+            <span class="workout__value">24</span>
+            <span class="workout__unit">min</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⚡️</span>
+            <span class="workout__value">4.6</span>
+            <span class="workout__unit">min/km</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">🦶🏼</span>
+            <span class="workout__value">178</span>
+            <span class="workout__unit">spm</span>
+          </div>
+        </li>
+
+        <li class="workout workout--cycling" data-id="1234567891">
+          <h2 class="workout__title">Cycling on April 5</h2>
+          <div class="workout__details">
+            <span class="workout__icon">🚴‍♀️</span>
+            <span class="workout__value">27</span>
+            <span class="workout__unit">km</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⏱</span>
+            <span class="workout__value">95</span>
+            <span class="workout__unit">min</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⚡️</span>
+            <span class="workout__value">16</span>
+            <span class="workout__unit">km/h</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⛰</span>
+            <span class="workout__value">223</span>
+            <span class="workout__unit">m</span>
+          </div>
+        </li> -->
+   
+      </ul>
+      
+      <form class="delete-confirmation hidden">
+        <h2>Do you want to delete all your workouts?<br/>Press OK if you are sure </h2>
+
+        <div class="delete-confirmation-ok-btn"> 🙆‍♀️ OK</div>
+        <div class="delete-confirmation-cancel-btn">🙅‍♀️ CANCEL</div>
+      </form>
+
+      <div class="menu-container">
+        <span class="show-all-btn"> 👁️‍🗨️ Show All </span>
+        <span class="delete-all-btn"> ✖️ Delete All </span>
+        <span class="sort-btn"> 🔝Sort (<em id="sort-options">date</em>)</span>
+
+
+        <div class="sort-dropdown hidden">
+          <ul class="sort-dropdown-content">
+            <li class="sort-dropdown-by-date">📅 Sort by date </li>
+            <li class="sort-dropdown-by-distance">📈 Sort by distance </li>
+            <li class="sort-dropdown-by-duration">⏰ Sort by duration </li>
+
+          </ul>
+        </div>
+
+      </div>
+    
+    
+<br></br>
+
+      <p class="copyright">
+        &copy; Copyright by <a href="https://github.com/jia-yoo">Jia Yoo</a>. This project is a complete refactoring of 'Mapty' app by <a
+        class="twitter-link"
+        target="_blank"
+        href="https://twitter.com/jonasschmedtman"
+        >Jonas Schmedtmann</a
+      >.
+      </p>
+
+    </div>
+
+    <div id="map"></div>
+  </body>
+</html>

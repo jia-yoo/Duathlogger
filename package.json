@@ -1,0 +1,19 @@
+{
+  "name": "duathlogger",
+  "version": "1.0.0",
+  "description": "workout logging app",
+  "defaultyarn ": "index.html",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html --dist-dir ./dist"
+  },
+  "dependencies": {
+    "core-js": "^3.30.2",
+    "leaflet": "^1.9.4",
+    "live-server": "^1.2.2",
+    "lodash": "^4.17.21",
+    "parcel": "^2.8.3",
+    "regenerator-runtime": "^0.13.11"
+  }
+}
