@@ -2,6 +2,7 @@
 
 ///////////loading messege or spinner when getting api &&&&& add active class name while disabling everything else
 
+
 // prettier-ignore
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -122,6 +123,7 @@ class App {
   #curWorkoutEl;
   #curWorkout;
 
+
   constructor() {
     this.renderSpinner(spinner);
 
@@ -215,12 +217,8 @@ class App {
     }).addTo(this.#map);
 
     // Render initial marker and popup
-    const initIcon = L.icon({
-      iconUrl: 'current.png',
-      iconSize: [80, 80],
-      iconAnchor: [8, 8],
-    });
-    const marker = L.marker(coords, { icon: initIcon }).addTo(this.#map);
+   
+    const marker = L.marker(coords).addTo(this.#map);
     marker
       .bindPopup(
         L.popup({
@@ -434,14 +432,9 @@ class App {
   }
 
   _renderWorkoutMarker(workout) {
-    const icon = L.icon({
-      iconUrl: workout.type === 'running' ? 'running.png' : 'bicycle.png',
-      iconSize: [60, 60],
-      iconAnchor: [22, 94],
-      popupAnchor: [-3, -76],
-    });
 
-    const marker = L.marker(workout.coords, { icon: icon }).addTo(this.#map);
+
+    const marker = L.marker(workout.coords).addTo(this.#map);
 
     const popup = L.popup({
       maxWidth: 250,
